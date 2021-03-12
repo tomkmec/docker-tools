@@ -8,12 +8,8 @@ RUN sudo apt-get update
 RUN sudo apt-get install trivy
 
 # install dockle
-$ VERSION=$(
- curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | \
- grep '"tag_name":' | \
- sed -E 's/.*"v([^"]+)".*/\1/' \
-) && curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb
-$ sudo dpkg -i dockle.deb && rm dockle.deb
+RUN VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/' )
+RUN curl -L -o dockle.deb https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.deb && sudo dpkg -i dockle.deb && rm dockle.deb
 
 # install syft
 RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
