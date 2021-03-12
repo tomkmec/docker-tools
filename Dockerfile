@@ -3,7 +3,7 @@ RUN ls /usr/local/bin/dockle
 
 FROM docker:stable-git
 
-RUN apk add --no-cache bash curl wget tar
+RUN apk add --no-cache bash curl wget ca-certificates shadow
 
 # install trivy
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
