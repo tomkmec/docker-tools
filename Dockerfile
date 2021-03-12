@@ -1,11 +1,9 @@
-FROM ubuntu:20.10
+FROM docker:stable-git
+
+RUN apk add --no-cache bash curl wget
 
 # install trivy
-RUN sudo apt-get install wget apt-transport-https gnupg lsb-release
-RUN wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-RUN echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
-RUN sudo apt-get update
-RUN sudo apt-get install trivy
+RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # install dockle
 RUN VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/' )
