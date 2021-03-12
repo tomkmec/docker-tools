@@ -12,7 +12,7 @@ RUN tar -zxf dockle.tar.gz && mv dockle /usr/local/bin/dockle && chmod +x /usr/l
 
 # install kubesec
 RUN curl -L -o kubesec.tar.gz https://github.com/controlplaneio/kubesec/releases/download/v2.11.0/kubesec_linux_amd64.tar.gz
-RUN tar -zxf dkubesec.tar.gz && mv kubesec /usr/local/bin/kubesec && chmod +x /usr/local/bin/kubesec && rm -rf kubesec.tar.gz
+RUN tar -zxf kubesec.tar.gz && mv kubesec /usr/local/bin/kubesec && chmod +x /usr/local/bin/kubesec && rm -rf kubesec.tar.gz
 COPY --from=stefanprodan/kubernetes-json-schema:latest /schemas/master-standalone /schemas/master-standalone-strict
 
 # install syft
