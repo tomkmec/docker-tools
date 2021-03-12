@@ -1,16 +1,14 @@
-FROM goodwithtech/dockle:latest
-RUN ls /usr/local/bin/dockle
-
 FROM docker:stable-git
 
-RUN apk add --no-cache bash curl wget ca-certificates shadow
+RUN apk add --no-cache bash curl wget tar ca-certificates shadow
 
 # install trivy
 RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
 
 # install dockle
-COPY --from=builder /usr/local/bin/dockle /usr/local/bin/dockle
-RUN RUN chmod +x /usr/local/bin/dockle
+RUN VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/' )
+RUN curl -L -o dockle.tar.gz https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.tar.gz 
+RUN tar -xf dockle.tar.gz dockle && mv dockle /usr/local/bin/dockle && chmod +x /usr/local/bin/dockle 
 
 # install syft
 RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
