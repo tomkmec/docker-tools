@@ -8,7 +8,10 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
 # install dockle
 RUN VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/' )
 RUN curl -L -o dockle.tar.gz https://github.com/goodwithtech/dockle/releases/download/v${VERSION}/dockle_${VERSION}_Linux-64bit.tar.gz 
-RUN tar -xf dockle.tar.gz dockle && mv dockle /usr/local/bin/dockle && chmod +x /usr/local/bin/dockle 
+RUN ls -l
+RUN tar -xf dockle.tar.gz dockle 
+RUN ls -l
+RUN mv dockle /usr/local/bin/dockle && chmod +x /usr/local/bin/dockle 
 
 # install syft
 RUN curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
