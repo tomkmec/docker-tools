@@ -19,7 +19,6 @@ RUN curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh |
 
 # Update Vuln DB
 RUN grype db update
-RUN trivy update
 
 RUN mkdir /app
 WORKDIR /app
