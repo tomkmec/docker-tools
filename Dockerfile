@@ -7,7 +7,7 @@ RUN curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/
 
 # install dockle
 # RUN VERSION=$(curl --silent "https://api.github.com/repos/goodwithtech/dockle/releases/latest" | grep '"tag_name":' | sed -E 's/.*"v([^"]+)".*/\1/' )
-RUN curl -L -o dockle.tar.gz https://github.com/goodwithtech/dockle/releases/download/v0.4.3/dockle_0.4.3_Linux-64bit.tar.gz 
+RUN curl -L -o dockle.tar.gz https://github.com/goodwithtech/dockle/releases/download/v0.4.5/dockle_0.4.5_Linux-64bit.tar.gz 
 RUN tar -zxf dockle.tar.gz && mv dockle /usr/local/bin/dockle && chmod +x /usr/local/bin/dockle && rm -rf dockle.tar.gz
 
 # install kubesec
